@@ -1,0 +1,7 @@
+Pour tester le premier exo : 
+	./configure
+	cd banque
+	make	
+	./banque --lib fork
+	./banque --lib pthread
+	./banque --lib pth
