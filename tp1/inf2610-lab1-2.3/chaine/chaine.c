@@ -31,11 +31,11 @@ int main(int argc, char **argv) {
 	whoami("chaine");
 
 	// Exécution de n cycles foo bar baz
-	int i;
-	for (i = 0; i < n; i++) {
-      execlp("baz", "baz", NULL);
-      execlp("foo", "foo", NULL);
-      execlp("bar", "bar", NULL);
+	char *s;
+	asprintf(&s, "%d", n);
+	if(n>0){
+	     execlp("foo", "foo", s, NULL);
 	}
+	
 	return 0;
 }

@@ -15,5 +15,6 @@
 int main(int argc, char **argv) {
 	increment_rank();
 	whoami("foo");
+	execlp("bar", "bar", argv[1], NULL);
 	return 0;
 }
