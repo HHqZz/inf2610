@@ -41,8 +41,12 @@ void semrelay_initialization(struct experiment * exp_data) {
     exp_data->data = make_statistics();
     
     // TODO: allocation d'un tableau de sémaphores sem_t dans exp_data->lock
+        sem_t * semaphore = malloc ( sizeof(sem_t));
     
     // TODO: initialisation des sémaphores
+        exp_data->lock = semaphore;
+        // int pour patager car chaine??
+        sem_init(semaphore, ?i?, unsigned);
 }
 
 void semrelay_destroy(struct experiment * exp_data) {
@@ -50,10 +54,10 @@ void semrelay_destroy(struct experiment * exp_data) {
 
     // copie finale dans exp_data->stats
     statistics_copy(exp_data->stats, exp_data->data);
-    free(exp_data->data);
 
     // TODO: destruction du verrou
-
+    sem_destroy( exp_data->lock);
     // TODO: liberation de la memoire du verrou
+    free( exp_data->lock);
 }
 
