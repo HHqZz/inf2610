@@ -17,11 +17,11 @@ int main(int argc, char **argv) {
 	whoami("baz");
 	printf(argv[1]);
 	
-	int n = atoi(argv[1]);
+	int nombreAppels = atoi(argv[1]);
 	
-	if(--n> 0){ 
+	if(--nombreAppels> 0){ 
 	      char *s;
-	      asprintf(&s, "%d", n);
+	      asprintf(&s, "%d", nombreAppels);
 	      execlp("foo", "foo", s, NULL);
 	}
 	return 0;
