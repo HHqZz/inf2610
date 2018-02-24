@@ -23,13 +23,14 @@ void * mutex_worker(void * data) {
     for (i = 0; i < exp_data->outer; i++) {
         
         
-        pthread_mutex_lock(exp_data->lock); //verrouille le mutex
+        pthread_mutex_lock(exp_data->lock); //verrouille le mutex /* modif pour robust */
         
         
         for (j = 0; j < exp_data->inner; j++) {
             /* En mode instable, le thread au rang 0 peut être tué aléatoirement */
             if (j == 0 && exp_data->unstable && exp_data->rank == 0) {
                 if (rand() / RAND_MAX < 0.1)
+                    pthread_mutex_unlock(exp_data->lock); // deverouille le mutex
                     pthread_exit(NULL);
             }
             unsigned long idx = (i * exp_data->inner) + j;
@@ -50,6 +51,7 @@ void mutex_initialization(struct experiment * exp_data) {
     // TODO: initialisation du mutex   MALLOC(nb Elem * sizeof(*mutex))
         exp_data->lock = mutex;
         pthread_mutex_init(mutex,NULL);
+
 }
 void mutex_destroy(struct experiment * exp_data) {
     statistics_copy(exp_data->stats, exp_data->data);
@@ -61,5 +63,3 @@ void mutex_destroy(struct experiment * exp_data) {
     // TODO: liberation de la memoire du verrou   
     free(exp_data->lock);   
 }
-
-
