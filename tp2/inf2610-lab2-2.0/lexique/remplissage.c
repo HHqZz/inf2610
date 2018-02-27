@@ -21,5 +21,13 @@ int main(int argc, char **argv) {
     /*
      * TODO: Creer un tube, puis le remplir octet par octet a l'infini
      */
+     
+    pipe(fds);
+    close(fds[READ]);
+    while(write(fds[WRITE], &c, sizeof(c)) > 0){
+		printf("%d\n", i);
+		i++;		
+	}
+	close(fds[WRITE]);
     return 0;
 }
