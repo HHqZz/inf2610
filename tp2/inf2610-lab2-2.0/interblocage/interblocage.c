@@ -47,7 +47,7 @@ void * worker_foo(void *data)
 
         // TODO 2.3: forcer l'interblocage avec la barriere
 	
-	//pthread_barrier_wait(&barrier);
+	pthread_barrier_wait(&barrier);
 
         x = ++y;
         printf("foo %d\n", x);
@@ -71,7 +71,7 @@ void * worker_bar(void *data)
 
         // TODO 2.3: forcer l'interblocage avec la barriere
 	
-	//pthread_barrier_wait(&barrier);
+	pthread_barrier_wait(&barrier);
 
         x = ++y;
         printf("bar %d\n", x);
