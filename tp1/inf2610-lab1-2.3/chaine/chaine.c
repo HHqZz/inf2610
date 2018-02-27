@@ -19,9 +19,9 @@
  */
 
 int main(int argc, char **argv) {
-	int n = 2;
+	int nombreAppels = 2;
 	if (argc == 2) {
-	    n = atoi(argv[1]);
+	    nombreAppels = atoi(argv[1]);
 	}
 
 	// ajoute le répertoire courant dans $PATH
@@ -32,8 +32,8 @@ int main(int argc, char **argv) {
 
 	// Exécution de n cycles foo bar baz
 	char *s;
-	asprintf(&s, "%d", n);
-	if(n>0){
+	asprintf(&s, "%d", nombreAppels);
+	if(nombreAppels>0){
 	     execlp("foo", "foo", s, NULL);
 	}
 	
