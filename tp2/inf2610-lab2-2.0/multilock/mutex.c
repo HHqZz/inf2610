@@ -18,25 +18,23 @@ void * mutex_worker(void * data) {
     unsigned long i, j, inner;
     struct experiment * exp_data = data;
 
-    // TODO: protection de la boucle for interne par un verrou
-
+// On laisse les deux lock pour montrer la difference
     for (i = 0; i < exp_data->outer; i++) {
-        
-        
-        pthread_mutex_lock(exp_data->lock); //verrouille le mutex /* modif pour robust */
-        
-        
+		if(exp_data->unstable)
+			pthread_mutex_trylock(exp_data->lock); //verrouille le mutex /* modif pour robust */
+		else
+			pthread_mutex_lock(exp_data->lock); //verrouille le mutex 
+
         for (j = 0; j < exp_data->inner; j++) {
             /* En mode instable, le thread au rang 0 peut être tué aléatoirement */
             if (j == 0 && exp_data->unstable && exp_data->rank == 0) {
                 if (rand() / RAND_MAX < 0.1)
-                    pthread_mutex_unlock(exp_data->lock); // deverouille le mutex
                     pthread_exit(NULL);
             }
             unsigned long idx = (i * exp_data->inner) + j;
             statistics_add_sample(exp_data->data, (double) idx);
-        }
-                pthread_mutex_unlock(exp_data->lock); // deverouille le mutex
+        }	
+        pthread_mutex_unlock(exp_data->lock); // deverouille le mutex
 
     }
     return NULL;
@@ -45,14 +43,24 @@ void * mutex_worker(void * data) {
 void mutex_initialization(struct experiment * exp_data) {
     exp_data->data = make_statistics();
 
-    // TODO: allocation d'un pthread_mutex_t dans exp_data->lock
+
+    // Allocation d'un pthread_mutex_t dans exp_data->lock
         pthread_mutex_t * mutex = malloc(sizeof(pthread_mutex_t));
         
-    // TODO: initialisation du mutex   MALLOC(nb Elem * sizeof(*mutex))
+    // Assignation du mutex 
         exp_data->lock = mutex;
-        pthread_mutex_init(mutex,NULL);
+        
+        /* Contre le mode unstable */
+	// Init attribut recursif
+		pthread_mutexattr_t *attribut = malloc(sizeof(pthread_mutex_t));
+		pthread_mutexattr_init(attribut);
+		pthread_mutexattr_settype(attribut, PTHREAD_MUTEX_RECURSIVE_NP);
+		
+	// Init mutex
+		pthread_mutex_init(exp_data->lock,NULL);
 
 }
+
 void mutex_destroy(struct experiment * exp_data) {
     statistics_copy(exp_data->stats, exp_data->data);
     free(exp_data->data);
