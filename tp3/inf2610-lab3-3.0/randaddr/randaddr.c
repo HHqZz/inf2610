@@ -111,10 +111,19 @@ main(int argc, char **argv) {
         break;
     case 0:
         /*
-         * TODO: faire un appel à personality(),
-         * puis exécuter la commande passée en argument (voir vars->prog et vars->args).
-         * ATTENTION: bien s'assurer de traiter l'argument vars->dry_run
+         * Exexcute with ./ranaddr ./dummy
          */
+        
+         if(vars->dry_run){ 	// en mode normal
+			 printf("DRY RUN  ");
+			execvp(vars->prog, vars->args);
+	     }
+	     else{					// en mode no random addr
+			 printf("NOT DRYYY  ");
+			 personality(ADDR_NO_RANDOMIZE)	; // disable address-space-layoutrandomization
+			 execvp(vars->prog, vars->args);
+		 }
+         
         break;
     default:
         wait(NULL);
