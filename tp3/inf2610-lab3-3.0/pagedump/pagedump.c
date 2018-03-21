@@ -24,6 +24,21 @@ void save_page(char *fname, void *ptr) {
      * 3 - écrire la page dans le fichier
      * 4 - fermer le fichier
      */
+     
+     unsigned long taillePage = 4096;
+     
+     unsigned long adresse = (unsigned long) ptr;     
+     
+     unsigned long numeroPage = adresse >> 12;
+     unsigned long offset = adresse << 20;
+     offset = offset >> 20;     
+     
+     unsigned long debutPage = numeroPage * taillePage;     
+     unsigned long finPage = debutPage + offset;
+     
+     int fd = open(fname, O_WRONLY);
+     
+     write(fd, (void *)debutPage, taillePage);
 
     return;
 }
