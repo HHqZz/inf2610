@@ -1,0 +1,23 @@
+00400000-00401000 r-xp 00000000 00:2c 95824660                           /usagers/tilaba/Bureau/INF2610 GIT HUB/tp3/inf2610-lab3-3.0/maps/segfault
+00601000-00602000 r--p 00001000 00:2c 95824660                           /usagers/tilaba/Bureau/INF2610 GIT HUB/tp3/inf2610-lab3-3.0/maps/segfault
+00602000-00603000 rw-p 00002000 00:2c 95824660                           /usagers/tilaba/Bureau/INF2610 GIT HUB/tp3/inf2610-lab3-3.0/maps/segfault
+009fd000-00ac3000 rw-p 00000000 00:00 0                                  [heap]
+7f1712d2a000-7f1712ef5000 r-xp 00000000 08:04 949968                     /usr/lib64/libc-2.25.so
+7f1712ef5000-7f17130f5000 ---p 001cb000 08:04 949968                     /usr/lib64/libc-2.25.so
+7f17130f5000-7f17130f9000 r--p 001cb000 08:04 949968                     /usr/lib64/libc-2.25.so
+7f17130f9000-7f17130fb000 rw-p 001cf000 08:04 949968                     /usr/lib64/libc-2.25.so
+7f17130fb000-7f17130ff000 rw-p 00000000 00:00 0 
+7f17130ff000-7f1713118000 r-xp 00000000 08:04 947420                     /usr/lib64/libpthread-2.25.so
+7f1713118000-7f1713318000 ---p 00019000 08:04 947420                     /usr/lib64/libpthread-2.25.so
+7f1713318000-7f1713319000 r--p 00019000 08:04 947420                     /usr/lib64/libpthread-2.25.so
+7f1713319000-7f171331a000 rw-p 0001a000 08:04 947420                     /usr/lib64/libpthread-2.25.so
+7f171331a000-7f171331e000 rw-p 00000000 00:00 0 
+7f171331e000-7f1713345000 r-xp 00000000 08:04 952064                     /usr/lib64/ld-2.25.so
+7f17134e1000-7f17134e4000 rw-p 00000000 00:00 0 
+7f1713542000-7f1713544000 rw-p 00000000 00:00 0 
+7f1713544000-7f1713545000 r--p 00026000 08:04 952064                     /usr/lib64/ld-2.25.so
+7f1713545000-7f1713547000 rw-p 00027000 08:04 952064                     /usr/lib64/ld-2.25.so
+7ffe31402000-7ffe31423000 rw-p 00000000 00:00 0                          [stack]
+7ffe315db000-7ffe315de000 r--p 00000000 00:00 0                          [vvar]
+7ffe315de000-7ffe315e0000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
