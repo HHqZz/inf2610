@@ -10,38 +10,26 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
-
+#define taillePage 4096
 /*
  * Savegarder la page contenant ptr dans le fichier fname
  */
 void save_page(char *fname, void *ptr) {
     (void) fname;
-    (void) ptr;
-    /*
-     * TODO:
-     * 1 - calculer l'adresse du début de la page
-     * 2 - ouvrir le fichier de destination
-     * 3 - écrire la page dans le fichier
-     * 4 - fermer le fichier
-     */
+    (void) ptr;     
      
-     unsigned long taillePage = 4096;
+     long adresse = (long)ptr;
+     long adresseDebut = adresse & ~(taillePage-1); 
      
-     unsigned long adresse = (unsigned long) ptr;     
-     
-     unsigned long numeroPage = adresse >> 12;
-     unsigned long offset = adresse << 20;
-     offset = offset >> 20;     
-     
-     unsigned long debutPage = numeroPage * taillePage;     
-     unsigned long finPage = debutPage + offset;
-     
+     creat(fname, S_IRWXU);
      int fd = open(fname, O_WRONLY);
      
-     write(fd, (void *)debutPage, taillePage);
+     write(fd, (void *)adresse, taillePage);
+     close(fd);
 
     return;
 }
+    
 
 int main(int argc, char **argv) {
     /*
